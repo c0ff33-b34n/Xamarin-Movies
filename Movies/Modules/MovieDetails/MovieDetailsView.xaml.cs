@@ -17,5 +17,11 @@ namespace Movies.Modules.MovieDetails
             InitializeComponent();
             BindingContext = viewModel;
         }
+
+        async void ImageButton_Clicked(System.Object sender, System.EventArgs e)
+        {
+            await imageButton.ScaleTo(1.3, 200);
+            await imageButton.ScaleTo(1, 200);
+        }
     }
 }
