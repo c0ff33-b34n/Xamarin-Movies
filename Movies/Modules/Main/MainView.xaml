@@ -14,7 +14,7 @@
                        SearchCommand="{Binding PerformSearchCommand}" />
             <CollectionView ItemsSource="{Binding Items}"
                             SelectionMode="Single"
-                            SelectedItems="{Binding SelectedMovie}"
+                            SelectedItem="{Binding SelectedMovie}"
                             SelectionChangedCommand="{Binding MovieChangedCommand}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

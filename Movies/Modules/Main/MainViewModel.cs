@@ -2,11 +2,8 @@
 using Movies.Common.Models;
 using Movies.Common.Navigation;
 using Movies.Modules.MovieDetails;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -27,8 +24,8 @@ namespace Movies
         private async Task GetMovieData()
         {
             var result = await _networkService.GetAsync<ListOfMovies>(ApiConstants.GetMoviesUri(SearchTerm));
-            Items = new ObservableCollection<MovieData>(result.Search
-                .Select(x => new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"), x.Year, x.imdbID)));
+            Items = new ObservableCollection<MovieData>(result.Search.Select(x => 
+                new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"), x.Year, x.imdbID)));
             OnPropertyChanged("Items");
         }
 
