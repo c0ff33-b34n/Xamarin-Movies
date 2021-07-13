@@ -2,30 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             x:Class="Movies.MainView">
+             x:Class="Movies.MainView"
+             NavigationPage.HasNavigationBar="False" >
     <ContentPage.Content>
         <StackLayout Margin="0,40,0,0">
+            <Label Text="Movie Database"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   Padding="10" />
             <SearchBar Text="{Binding SearchTerm}"
                        SearchCommand="{Binding PerformSearchCommand}" />
             <CollectionView ItemsSource="{Binding Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalOptions="CenterAndExpand">
-                            <ffimageloading:CachedImage LoadingPlaceholder="placeholder.png"
-                                                        Source="{Binding ImageUrl}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="300" />
-                            <Label VerticalOptions="End"
-                                   FontSize="38"
-                                   TextColor="White"
-                                   BackgroundColor="Black"
-                                   Opacity="0.85"
-                                   VerticalTextAlignment="Center"
-                                   Padding="15,0,5,0"
-                                   HeightRequest="70"
-                                   LineBreakMode="TailTruncation"
-                                   Text="{Binding Title}" />
-                        </Grid>
+                        <StackLayout>
+                            <Frame Padding="0"
+                                   CornerRadius="50"
+                                   Margin="10,20,10,0"
+                                   HorizontalOptions="Center"
+                                   IsClippedToBounds="True">
+                                <Grid>
+                                    <ffimageloading:CachedImage LoadingPlaceholder="placeholder.png"
+                                                            Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="300" />
+                                    <Label VerticalOptions="End"
+                                       FontSize="38"
+                                       TextColor="White"
+                                       BackgroundColor="Black"
+                                       Opacity="0.85"
+                                       VerticalTextAlignment="Center"
+                                       Padding="15,0,5,0"
+                                       HeightRequest="70"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding Title}" />
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
