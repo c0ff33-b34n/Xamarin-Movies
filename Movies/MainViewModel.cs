@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Movies
@@ -14,12 +16,11 @@ namespace Movies
         {
             _networkService = networkService;
             OnPropertyChanged("Items");
-            GetMovieData();
         }
 
-        private async void GetMovieData()
+        private async Task GetMovieData()
         {
-            var result = await _networkService.GetAsync<RootObject>(Constants.GetMoviesUri("avengers"));
+            var result = await _networkService.GetAsync<RootObject>(Constants.GetMoviesUri(SearchTerm));
             Items = new ObservableCollection<MovieData>(result.Search
                 .Select(x => new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"))));
             OnPropertyChanged("Items");
@@ -30,5 +31,9 @@ namespace Movies
             get;
             set;
         }
+
+        public string SearchTerm { get; set; }
+        public ICommand PerformSearchCommand { get => new Command(async () => await GetMovieData()); }
+
     }
 }
