@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Movies
+namespace Movies.Common.Models
 {
     public class BaseMovieInformation
     {
@@ -11,12 +11,5 @@ namespace Movies
         public string imdbID { get; set; }
         public string Type { get; set; }
         public string Poster { get; set; }
-    }
-
-    public class ListOfMovies
-    {
-        public List<BaseMovieInformation> Search { get; set; }
-        public string totalResults { get; set; }
-        public string Response { get; set; }
     }
 }

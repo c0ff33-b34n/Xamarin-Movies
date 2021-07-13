@@ -1,4 +1,5 @@
 ﻿using Movies.Common.Base;
+using Movies.Common.Models;
 using Movies.Common.Navigation;
 using Movies.Modules.MovieDetails;
 using System;
@@ -27,7 +28,7 @@ namespace Movies
         {
             var result = await _networkService.GetAsync<ListOfMovies>(ApiConstants.GetMoviesUri(SearchTerm));
             Items = new ObservableCollection<MovieData>(result.Search
-                .Select(x => new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"))));
+                .Select(x => new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"), x.Year, x.imdbID)));
             OnPropertyChanged("Items");
         }
 

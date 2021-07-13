@@ -10,5 +10,10 @@ namespace Movies
         {
             return $"https://www.omdbapi.com/?apikey=98389684&s={searchTerm}&page=1";
         }
+
+        public static string GetMovieById(string imdbId)
+        {
+            return $"https://www.omdbapi.com/?apikey=98389684&i={imdbId}&plot=full";
+        }
     }
 }
