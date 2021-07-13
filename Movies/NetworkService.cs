@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Movies
 {
-    public class NetworkService
+    public class NetworkService : INetworkService
     {
         private HttpClient _httpClient;
 
@@ -18,9 +17,9 @@ namespace Movies
 
         public async Task<TResult> GetAsync<TResult>(string uri)
         {
-            HttpResponseMessage response =  await _httpClient.GetAsync(uri);
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
             string serialized = await response.Content.ReadAsStringAsync();
-            var result = JsonSerializer.Deserialize<TResult>(serialized);
+            var result = JsonConvert.DeserializeObject<TResult>(serialized);
             return result;
         }
     }

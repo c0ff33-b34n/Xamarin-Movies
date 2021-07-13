@@ -15,7 +15,7 @@ namespace Movies
         public MainView()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            BindingContext = new MainViewModel(new NetworkService());
         }
     }
 }
