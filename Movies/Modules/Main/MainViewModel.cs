@@ -20,7 +20,7 @@ namespace Movies
 
         private async Task GetMovieData()
         {
-            var result = await _networkService.GetAsync<RootObject>(Constants.GetMoviesUri(SearchTerm));
+            var result = await _networkService.GetAsync<ListOfMovies>(ApiConstants.GetMoviesUri(SearchTerm));
             Items = new ObservableCollection<MovieData>(result.Search
                 .Select(x => new MovieData(x.Title, x.Poster.Replace("SX300", "SX600"))));
             OnPropertyChanged("Items");

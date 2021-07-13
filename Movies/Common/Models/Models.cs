@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Movies
 {
-    public class Search
+    public class BaseMovieInformation
     {
         public string Title { get; set; }
         public string Year { get; set; }
@@ -13,9 +13,9 @@ namespace Movies
         public string Poster { get; set; }
     }
 
-    public class RootObject
+    public class ListOfMovies
     {
-        public List<Search> Search { get; set; }
+        public List<BaseMovieInformation> Search { get; set; }
         public string totalResults { get; set; }
         public string Response { get; set; }
     }
