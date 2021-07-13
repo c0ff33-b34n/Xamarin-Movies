@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Movies
+namespace Movies.Modules.MovieDetails
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainView : ContentPage
+    public partial class MovieDetailsView : ContentPage
     {
-        public MainView(MainViewModel viewModel)
+        public MovieDetailsView(MovieDetailsViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = viewModel;

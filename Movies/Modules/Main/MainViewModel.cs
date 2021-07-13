@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Movies.Common.Base;
+using Movies.Common.Navigation;
+using Movies.Modules.MovieDetails;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,12 +12,14 @@ using Xamarin.Forms;
 
 namespace Movies
 {
-    public class MainViewModel : BindableObject
+    public class MainViewModel : BaseViewModel
     {
         private INetworkService _networkService;
-        public MainViewModel(INetworkService networkService)
+        private INavigationService _navigationService;
+        public MainViewModel(INetworkService networkService, INavigationService navigationService)
         {
             _networkService = networkService;
+            _navigationService = navigationService;
             OnPropertyChanged("Items");
         }
 
@@ -33,7 +38,24 @@ namespace Movies
         }
 
         public string SearchTerm { get; set; }
-        public ICommand PerformSearchCommand { get => new Command(async () => await GetMovieData()); }
 
+        private MovieData _selectedMovie;
+        public MovieData SelectedMovie
+        {
+            get => _selectedMovie;
+            set => SetProperty(ref _selectedMovie, value);
+        }
+        public ICommand PerformSearchCommand { get => new Command(async () => await GetMovieData()); }
+        public ICommand MovieChangedCommand { get => new Command(async () => await GoToMovieDetails()); }
+
+        private async Task GoToMovieDetails()
+        {
+            if (SelectedMovie == null)
+            {
+                return;
+            }
+            await _navigationService.PushAsync<MovieDetailsViewModel>(SelectedMovie);
+            SelectedMovie = null;
+        }
     }
 }

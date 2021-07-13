@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Movies.Common.Base;
+using Movies.Modules.MovieDetails;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Movies.Common.Navigation
         private readonly Dictionary<Type, Type> _pageMap = new Dictionary<Type, Type>
         {
             // TODO: URL mapping goes here
-            //  { typeof(HistoryViewModel), typeof(HistoryView) },
+            { typeof(MovieDetailsViewModel), typeof(MovieDetailsView) },
         };
 
         public NavigationService(Func<INavigation> navigation, IComponentContext container)
