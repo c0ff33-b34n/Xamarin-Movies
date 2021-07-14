@@ -43,6 +43,14 @@ namespace Movies
             get => _selectedMovie;
             set => SetProperty(ref _selectedMovie, value);
         }
+
+        private string _selectedMovieId;
+        public string SelectedMovieId
+        { 
+            get => _selectedMovieId;
+            set => SetProperty(ref _selectedMovieId, value);
+        }
+
         public ICommand PerformSearchCommand { get => new Command(async () => await GetMovieData()); }
         public ICommand MovieChangedCommand { get => new Command(async () => await GoToMovieDetails()); }
 
@@ -52,6 +60,7 @@ namespace Movies
             {
                 return;
             }
+            SelectedMovieId = SelectedMovie.ImdbID;
             await _navigationService.PushAsync<MovieDetailsViewModel>(SelectedMovie);
             SelectedMovie = null;
         }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
              x:Class="Movies.Modules.MovieDetails.MovieDetailsView"
              xmlns:local="clr-namespace:Movies.Common.Converters"
              NavigationPage.HasNavigationBar="False">
@@ -19,7 +20,8 @@
                 <Grid>
                     <ffimageloading:CachedImage Source="{Binding MovieData.ImageUrl}"
                                         Aspect="AspectFill"
-                                        HeightRequest="500" />
+                                        HeightRequest="500"
+                                        sharedTransitions:Transition.Name="MovieImage"/>
                     <Frame WidthRequest="40"
                        HeightRequest="40"
                        Margin="0,50,30,0"

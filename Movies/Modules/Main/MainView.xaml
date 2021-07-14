@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
              x:Class="Movies.MainView"
-             NavigationPage.HasNavigationBar="False" >
+             NavigationPage.HasNavigationBar="False"
+             sharedTransitions:SharedTransitionNavigationPage.TransitionSelectedGroup="{Binding SelectedMovieId }">
     <ContentPage.Content>
         <StackLayout Margin="0,40,0,0">
             <Label Text="Movie Database"
@@ -28,7 +30,9 @@
                                     <ffimageloading:CachedImage LoadingPlaceholder="placeholder.png"
                                                             Source="{Binding ImageUrl}"
                                        Aspect="AspectFill"
-                                       HeightRequest="300" />
+                                       HeightRequest="300"
+                                       sharedTransitions:Transition.Name="MovieImage"
+                                       sharedTransitions:Transition.Group="{Binding ImdbID}"/>
                                     <Label VerticalOptions="End"
                                        FontSize="38"
                                        TextColor="White"

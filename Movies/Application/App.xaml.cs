@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Movies.Common.Navigation;
+using Plugin.SharedTransitions;
 using System;
 using System.Reflection;
 using Xamarin.Forms;
@@ -22,7 +23,7 @@ namespace Movies
                    .AsSelf();
 
             //register navigation service
-            NavigationPage navigationPage = null;
+            SharedTransitionNavigationPage navigationPage = null;
             Func<INavigation> navigationFunc = () => {
                 return navigationPage.Navigation;
             };
@@ -33,7 +34,7 @@ namespace Movies
             //get container
             var container = builder.Build();
             //set first page
-            navigationPage = new NavigationPage(container.Resolve<MainView>());
+            navigationPage = new SharedTransitionNavigationPage(container.Resolve<MainView>());
             MainPage = navigationPage;
         }
 
