@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Movies.Common.Database;
+using Movies.Common.Models;
 using Movies.Common.Navigation;
 using Plugin.SharedTransitions;
 using System;
@@ -21,6 +23,7 @@ namespace Movies
             builder.RegisterAssemblyTypes(dataAccess)
                    .AsImplementedInterfaces()
                    .AsSelf();
+            builder.RegisterType<Repository<FullMovieInformation>>().As<IRepository<FullMovieInformation>>();
 
             //register navigation service
             SharedTransitionNavigationPage navigationPage = null;

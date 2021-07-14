@@ -1,8 +1,10 @@
 ﻿using Movies.Common.Base;
+using Movies.Common.Database;
 using Movies.Common.Models;
 using Movies.Common.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,13 +16,17 @@ namespace Movies.Modules.MovieDetails
     {
         private INavigationService _navigationService;
         private INetworkService _networkService;
+        private IRepository<FullMovieInformation> _movieInformationRepository;
 
         private MovieData _movieData;
 
-        public MovieDetailsViewModel(INavigationService navigationService, INetworkService networkService)
+        public MovieDetailsViewModel(INavigationService navigationService,
+                                     INetworkService networkService,
+                                     IRepository<FullMovieInformation> repo)
         {
             _navigationService = navigationService;
             _networkService = networkService;
+            _movieInformationRepository = repo;
         }
 
         public MovieData MovieData
@@ -48,6 +54,13 @@ namespace Movies.Modules.MovieDetails
         {
             MovieData = (MovieData)parameter;
             MovieInformation = await _networkService.GetAsync<FullMovieInformation>(ApiConstants.GetMovieById(MovieData.ImdbID));
+            var dbinfo = (await _movieInformationRepository.GetAllAsync()).FirstOrDefault(x => x.imdbID == MovieInformation.imdbID);
+
+            if (dbinfo != null)
+            {
+                MovieInformation.Id = dbinfo.Id;
+                IsFavorite = dbinfo.IsFavorite;
+            }
         }
 
         public ICommand GoBackCommand => new Command(async () => await GoBack());
@@ -61,6 +74,8 @@ namespace Movies.Modules.MovieDetails
         private async Task SetMovieFavorite()
         {
             IsFavorite = !IsFavorite;
+            MovieInformation.IsFavorite = IsFavorite;
+            await _movieInformationRepository.SaveAsync(MovieInformation);
         }
 
     }
